@@ -1,6 +1,4 @@
 import streamlit as st
-import pandas as pd
-from io import StringIO
 import os
 from extract_pdf import extract_text_from_pdf
 from fine_tune import predict
@@ -34,8 +32,7 @@ if upload_file is not None:
     st.markdown("## Extracted Content")
     uploaded_file_path = save_uploaded_file(upload_file, "uploaded_file")
     text = extract_text_from_pdf(uploaded_file_path)
-    all_entities = extract_details(text)
-    # print (all_entities)
+    
     # Add border to the extracted content
     st.markdown("""
         <div style="border:2px solid black; padding: 10px;">
@@ -46,30 +43,38 @@ if upload_file is not None:
     
     st.markdown("## Predicted Clause")
     
-    # Initialize an HTML string with a border
+    # Initialize an HTML string with a border for predicted clauses
     html_content = '<div style="border:2px solid black; padding: 10px;"><b>Predicted Clauses:</b><br>'
-    
+    all_entities = []
     for line in text.splitlines():
         label_idx = predict(line)
         if label_idx != 6:
             html_content += f"{line} <b>[{classes[label_idx]}]</b><br>"
         else:
             html_content += f"{line}<br>"
-    
-    # Close the HTML string
+        entities = extract_details(line)
+        all_entities.extend(entities)
+    # Close the HTML string for predicted clauses
     html_content += '</div>'
     
-    # Display the content with border
+    # Display the predicted clauses content with border
     st.markdown(html_content, unsafe_allow_html=True)
-
-
     
-
-
-
-
-
-
-
-
-
+    st.markdown("## Extracted Entities")
+    
+    # Initialize an HTML string with a border for extracted entities
+    entities_html_content = '<div style="border:2px solid black; padding: 10px;"><b>Extracted Entities:</b><br>'
+    stack = []
+    for entity in all_entities:
+        if entity[1] == 'CARDINAL':
+            continue
+        elif entity[0] in stack:
+            continue
+        entities_html_content += f"{entity[0]} <b>{entity[1]}</b><br>"
+        stack.append(entity[0])
+    
+    # Close the HTML string for extracted entities
+    entities_html_content += '</div>'
+    
+    # Display the extracted entities content with border
+    st.markdown(entities_html_content, unsafe_allow_html=True)
