@@ -1,0 +1,6 @@
+pandas
+faker
+spacy
+transformers
+torch --index-url https://download.pytorch.org/whl/cu118
+pymupdf
