@@ -36,8 +36,8 @@ if upload_file is not None:
     
     # Add border to the extracted content
     st.markdown("""
-        <div style="border:2px solid black; padding: 10px;">
-            <b>Extracted Text:</b>
+        <div style="border:2px solid black; padding: 10px;  background-color: #f0f0f5;">
+            <Extracted Text>
             <p>{}</p>
         </div>
     """.format(text.replace("\n", "<br>")), unsafe_allow_html=True)
@@ -45,16 +45,7 @@ if upload_file is not None:
     st.markdown("## Predicted Clause")
     
     # Initialize an HTML string with a border for predicted clauses
-    html_content = '<div style="border:2px solid black; padding: 10px;"><b>Predicted Clauses:</b><br>'
-    # all_entities = []
-    # for line in text.splitlines():
-    #     label_idx = predict(line)
-    #     if label_idx != 6:
-    #         html_content += f"{line} <b>[{classes[label_idx]}]</b><br>"
-    #     else:
-    #         html_content += f"{line}<br>"
-    #     entities = extract_entities(line)
-    #     all_entities.extend(entities)
+    html_content = '<div style="border:2px solid black; padding: 10px;  background-color: #f0f0f5;"><Predicted Clauses>'
     
     all_entities = []
     for line in text.splitlines():
@@ -75,7 +66,7 @@ if upload_file is not None:
     st.markdown("## Extracted Entities")
     
     # Initialize an HTML string with a border for extracted entities
-    entities_html_content = '<div style="border:2px solid black; padding: 10px;"><b>Extracted Entities:</b><br>'
+    entities_html_content = '<div style="border:2px solid black; padding: 10px;  background-color: #f0f0f5;"><Extracted Entities>'
     stack = []
     for entity in all_entities:
         if entity[1] == 'CARDINAL':
@@ -100,9 +91,14 @@ if upload_file is not None:
     print(details)
 
     summary_content = f"""
-        <div style="border:2px solid black; padding: 10px;">
-            <b>Summary:</b><br>
-            {details["PARTY_A"]} agrees to provide services to {details["PARTY_B"]}, as {details["PARTY_B"]} agrees to pay {details["MONEY"]} to {details["PARTY_A"]} for the described services provided for {details["NOTICE_DAYS"]}. This contract will commence on {details["START_DATE"]} and continue till {details["END_DATE"]}. Both the parties agrees to maintain the {details["CONFIDENTIALITY"]}  of any proprietary or confidentials ] .<br>
+        <div style="border:2px solid black; padding: 10px;  background-color: #f0f0f5;">
+            <b> {details["PARTY_A"]} </b> agrees to provide services to <b> {details["PARTY_B"]} </b>, 
+            as <b> {details["PARTY_B"]} </b> agrees to pay <b> ${details["MONEY"]} </b> to <b> {details["PARTY_A"]} </b> for the described services provided
+              for  <b> {details["NOTICE_DAYS"]} days </b>. This contract will commence on <b> {details["START_DATE"]} </b> and continue till <b> {details["END_DATE"]} </b>.
+             Both the parties agrees to maintain the <b> {details["CONFIDENTIALITY"]} </b> of any proprietary
+               or confidential information disclosed during theterm of this contract. This obligation will continue beyond the 
+               termination of this contract. This contract shall be governed by and construed in accordance
+                 with the laws of the State of <b> {details["STATE"]} </b> . .<br>
             
         </div>
         """
