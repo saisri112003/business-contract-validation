@@ -9,28 +9,28 @@ Business Contract Validation is a tool designed to streamline the process of ana
 
 **To set up the project locally, follow these steps:**
 
-1.**Clone the repository:**
+1. **Clone the repository:**
 
 ```bash
     git clone https://github.com/saisri112003/business-contract-validation.git
 ```
 
-2.**download the fine_tuned_bert model**
+2. **Download the fine_tuned_bert model**
   [Here!](https://drive.google.com/file/d/19-4CmrquSzq3EkLuILtI-E_vfk3xbiK9/view?usp=sharing)
 
-3.**Extract the downloaded fine_tuned_bert.zip**
+3. **Extract the downloaded fine_tuned_bert.zip**
 
-extract in the root folder and ensure that the folder is not recursively present more than once.
+    Extract in the root folder and ensure that the folder is not recursively present more than once.
 
-4.**Ensure your pc has python version >= 3.8**
+4. **Ensure your pc has python version >= 3.8**
 
-5.**Install the required packages:**
+5. **Install the required packages:**
 
 ```bash
     pip install -r requirements.txt
 ```
 
-6.**To run the Streamlit application, use the following command:**
+6. **To run the Streamlit application, use the following command:**
 
 ```bash
      streamlit run app.py
