@@ -10,6 +10,7 @@ def extract_text_from_pdf(pdf_path:str) -> str:
 
                     return text
 
-pdf_path = "D:\sai\Contract_0.pdf"
-extracted_text = extract_text_from_pdf(pdf_path)
-print(extracted_text)
+if __name__=="__main__":
+    pdf_path = "D:\sai\Contract_0.pdf"
+    extracted_text = extract_text_from_pdf(pdf_path)
+    print(extracted_text)
