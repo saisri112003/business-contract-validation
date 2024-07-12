@@ -16,7 +16,7 @@ Business Contract Validation is a tool designed to streamline the process of ana
 ```
 
 2.**download the fine_tuned_bert model**
-  From [Here!](https://drive.google.com/file/d/19-4CmrquSzq3EkLuILtI-E_vfk3xbiK9/view?usp=sharing)
+  [Here!](https://drive.google.com/file/d/19-4CmrquSzq3EkLuILtI-E_vfk3xbiK9/view?usp=sharing)
 
 3.**Extract the downloaded fine_tuned_bert.zip**
 
@@ -42,7 +42,7 @@ Once the app is running, open your web browser and go to [http://localhost:8501.
 
 ## Important
 
- From [Here!](https://drive.google.com/file/d/19-4CmrquSzq3EkLuILtI-E_vfk3xbiK9/view?usp=sharing)
+ Download Fine Tuned Bert Model From [Here!](https://drive.google.com/file/d/19-4CmrquSzq3EkLuILtI-E_vfk3xbiK9/view?usp=sharing)
 
 
 
