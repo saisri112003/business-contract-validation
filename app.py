@@ -2,7 +2,8 @@ import streamlit as st
 import os
 from extract_pdf import extract_text_from_pdf
 from fine_tune import predict
-from spac import extract_details
+from NER import extract_entities
+import re
 
 classes = {
     0: "Services Provided", 
@@ -45,14 +46,25 @@ if upload_file is not None:
     
     # Initialize an HTML string with a border for predicted clauses
     html_content = '<div style="border:2px solid black; padding: 10px;"><b>Predicted Clauses:</b><br>'
+    # all_entities = []
+    # for line in text.splitlines():
+    #     label_idx = predict(line)
+    #     if label_idx != 6:
+    #         html_content += f"{line} <b>[{classes[label_idx]}]</b><br>"
+    #     else:
+    #         html_content += f"{line}<br>"
+    #     entities = extract_entities(line)
+    #     all_entities.extend(entities)
+    
     all_entities = []
     for line in text.splitlines():
-        label_idx = predict(line)
-        if label_idx != 6:
-            html_content += f"{line} <b>[{classes[label_idx]}]</b><br>"
-        else:
+        predicted_class = predict(text=line)
+        if predicted_class == 6 or re.search(r"\d\s*\.\s*([\w\s]+)\s*:", line):
             html_content += f"{line}<br>"
-        entities = extract_details(line)
+            entities = []
+        else:
+            html_content += f"{line} <b>[{classes[predicted_class]}]</b><br>"
+            entities = extract_entities(text=line)
         all_entities.extend(entities)
     # Close the HTML string for predicted clauses
     html_content += '</div>'
@@ -78,3 +90,24 @@ if upload_file is not None:
     
     # Display the extracted entities content with border
     st.markdown(entities_html_content, unsafe_allow_html=True)
+
+    st.markdown("## Summary")
+    
+
+    details = {}
+    for entity in all_entities:
+       details[entity[1]] = entity[0]
+    print(details)
+
+    summary_content = f"""
+        <div style="border:2px solid black; padding: 10px;">
+            <b>Summary:</b><br>
+            {details["PARTY_A"]} agrees to provide services to {details["PARTY_B"]}, as {details["PARTY_B"]} agrees to pay {details["MONEY"]} to {details["PARTY_A"]} for the described services provided for {details["NOTICE_DAYS"]}. This contract will commence on {details["START_DATE"]} and continue till {details["END_DATE"]}. Both the parties agrees to maintain the {details["CONFIDENTIALITY"]}  of any proprietary or confidentials ] .<br>
+            
+        </div>
+        """
+    
+
+    
+    st.markdown(summary_content, unsafe_allow_html=True)
+
