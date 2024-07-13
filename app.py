@@ -1,4 +1,3 @@
-
 import streamlit as st
 import os
 from extract_pdf import extract_text_from_pdf
@@ -20,7 +19,6 @@ classes = {
 selected = option_menu(
     menu_title = None,
     options = ["Extracted content", "Predicted Clause", "Extracted Entities", "Summary"],
-    icons = ["book", "envelope", "entity", "information"],
     menu_icon= "cast",
     orientation = "horizontal",
 
